@@ -12,12 +12,11 @@ namespace TeubDev.Moq.AutoMock;
 public class HttpClientMock
 {
     private readonly Mock<HttpMessageHandler> handlerMock;
-    private readonly HttpClient httpClient;
 
     internal HttpClientMock(AutoMocker mocker, string baseAddress)
     {
         handlerMock = mocker.GetMock<HttpMessageHandler>();
-        httpClient = mocker.CreateInstance<HttpClient>();
+        var httpClient = mocker.CreateInstance<HttpClient>();
         httpClient.BaseAddress = new Uri(baseAddress);
         mocker.Use(httpClient);
     }

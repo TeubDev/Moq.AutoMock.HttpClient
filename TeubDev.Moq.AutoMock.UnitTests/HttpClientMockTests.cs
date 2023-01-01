@@ -11,7 +11,7 @@ public class HttpClientMockTests
         var mocker = new AutoMocker();
         var mockClient = mocker.GetHttpClientMock();
         var url = "stuff";
-        var baseUri = new Uri("https://google.com/");
+        var baseAddress = new Uri("https://google.com/");
         var expectedResponse = new HttpResponseMessage
         {
             Content = new StringContent("This is the response"),
@@ -19,11 +19,11 @@ public class HttpClientMockTests
         };
         mockClient
             .SetupRequest(m =>
-                m.RequestUri == new Uri(baseUri, url)
+                m.RequestUri == new Uri(baseAddress, url)
                 && m.Method == HttpMethod.Get)
             .ReturnsAsync(expectedResponse);
         var client = mocker.CreateInstance<HttpClient>();
-        client.BaseAddress = baseUri;
+        client.BaseAddress = baseAddress;
 
         using var result = await client.GetAsync(url);
 
@@ -31,7 +31,7 @@ public class HttpClientMockTests
         {
             Assert.That(result, Is.EqualTo(expectedResponse));
             mockClient.Verify(m =>
-                m.RequestUri == new Uri(baseUri, url)
+                m.RequestUri == new Uri(baseAddress, url)
                 && m.Method == HttpMethod.Get, Times.Once);
         });
     }
@@ -40,28 +40,27 @@ public class HttpClientMockTests
     public async Task SetupAndVerify_NonmatchingVerify_ThrowsMockException()
     {
         var mocker = new AutoMocker();
-        var mockClient = mocker.GetHttpClientMock();
         var url = "stuff";
-        var baseUri = new Uri("https://google.com/");
+        var baseAddress = "https://google.com/";
         var expectedResponse = new HttpResponseMessage
         {
             Content = new StringContent("This is the response"),
             StatusCode = System.Net.HttpStatusCode.OK,
         };
+        var mockClient = mocker.GetHttpClientMock(baseAddress);
         mockClient
             .SetupRequest(m =>
-                m.RequestUri == new Uri(baseUri, url)
+                m.RequestUri == new Uri(new Uri(baseAddress), url)
                 && m.Method == HttpMethod.Get)
             .ReturnsAsync(expectedResponse);
-        var client = mocker.CreateInstance<HttpClient>();
-        client.BaseAddress = baseUri;
+        var client = mocker.Get<HttpClient>();
 
         using var result = await client.GetAsync(url);
 
         Assert.Throws<MockException>(() =>
         {
             mockClient.Verify(m =>
-                m.RequestUri == new Uri(baseUri, url + "thisWillNotMatch")
+                m.RequestUri == new Uri(new Uri(baseAddress), url + "thisWillNotMatch")
                 && m.Method == HttpMethod.Get, Times.Once);
         });
     }
