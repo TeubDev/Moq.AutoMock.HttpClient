@@ -31,8 +31,8 @@ public class HttpClientMockTests
         {
             Assert.That(result, Is.EqualTo(expectedResponse));
             mockClient.Verify(m =>
-                (m.RequestUri == new Uri(baseUri, url)
-                && m.Method == HttpMethod.Get), Times.Once);
+                m.RequestUri == new Uri(baseUri, url)
+                && m.Method == HttpMethod.Get, Times.Once);
         });
     }
 
@@ -61,8 +61,8 @@ public class HttpClientMockTests
         Assert.Throws<MockException>(() =>
         {
             mockClient.Verify(m =>
-                (m.RequestUri == new Uri(baseUri, url + "thisWillNotMatch")
-                && m.Method == HttpMethod.Get), Times.Once);
+                m.RequestUri == new Uri(baseUri, url + "thisWillNotMatch")
+                && m.Method == HttpMethod.Get, Times.Once);
         });
     }
 }

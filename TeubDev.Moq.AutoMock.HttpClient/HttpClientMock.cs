@@ -37,4 +37,8 @@ public class HttpClientMock
     public void Verify(Expression<Func<HttpRequestMessage, bool>> requestMatcher, Func<Times> times) =>
         Verify(requestMatcher, times());
 
+    /// <inheritdoc cref="Verify(Expression{Func{HttpRequestMessage, bool}}, Times)"/>
+    public void Verify(Expression<Func<HttpRequestMessage, bool>> requestMatcher) =>
+        Verify(requestMatcher, Times.Once());
+
 }
