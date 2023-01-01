@@ -15,9 +15,14 @@
 	<RepositoryUrl>https://github.com/TeubDev/Moq.AutoMock.HttpClient</RepositoryUrl>
 	<RepositoryType>git</RepositoryType>
 	<PackageTags>Moq;AutoMock;HttpClient;Unit Test;Unit Testing</PackageTags>
+	<PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
