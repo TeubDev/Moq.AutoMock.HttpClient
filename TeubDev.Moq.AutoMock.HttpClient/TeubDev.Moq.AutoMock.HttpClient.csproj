@@ -6,7 +6,23 @@
     <Nullable>enable</Nullable>
     <RootNamespace>TeubDev.Moq.AutoMock</RootNamespace>
 	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	<Version>0.0.1</Version>
+	<Authors>Michael Teubner</Authors>
+	<Company />
+	<Description>A NuGet package for making HttpClients slightly easier to test.</Description>
+	<PackageProjectUrl>https://github.com/TeubDev/Moq.AutoMock.HttpClient</PackageProjectUrl>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<RepositoryUrl>https://github.com/TeubDev/Moq.AutoMock.HttpClient</RepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+	<PackageTags>Moq;AutoMock;HttpClient;Unit Test;Unit Testing</PackageTags>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Moq.AutoMock" Version="3.4.0" />
