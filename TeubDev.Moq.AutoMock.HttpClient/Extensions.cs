@@ -15,5 +15,5 @@ public static class Extensions
     /// <remarks>
     /// The baseAddress parameter is needed if the unit test uses a relative URI instead of absolute.
     /// </remarks>
-    public static HttpClientMock GetHttpClientMock(this AutoMocker autoMocker, string baseAddress = "http://localhost") => new (autoMocker, baseAddress);
+    public static HttpClientMock GetHttpClientMock(this AutoMocker autoMocker, Uri? baseAddress = null) => new (autoMocker, baseAddress);
 }

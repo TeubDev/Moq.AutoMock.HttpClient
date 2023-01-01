@@ -9,20 +9,21 @@ public class HttpClientMockTests
     public async Task SetupAndVerify_MatchingCall_NoException()
     {
         var mocker = new AutoMocker();
-        var mockClient = mocker.GetHttpClientMock();
-        var url = "https://google.com/";
+
+        var url = "stuff";
         var baseAddress = new Uri("https://google.com/");
         var expectedResponse = new HttpResponseMessage
         {
             Content = new StringContent("This is the response"),
             StatusCode = System.Net.HttpStatusCode.OK,
         };
+        var mockClient = mocker.GetHttpClientMock(baseAddress);
         mockClient
             .SetupRequest(m =>
                 m.RequestUri == new Uri(baseAddress, url)
                 && m.Method == HttpMethod.Get)
             .ReturnsAsync(expectedResponse);
-        var client = mocker.CreateInstance<HttpClient>();
+        var client = mocker.Get<HttpClient>();
 
         using var result = await client.GetAsync(url);
 
@@ -40,7 +41,7 @@ public class HttpClientMockTests
     {
         var mocker = new AutoMocker();
         var url = "stuff";
-        var baseAddress = "https://google.com/";
+        var baseAddress = new Uri("https://google.com/");
         var expectedResponse = new HttpResponseMessage
         {
             Content = new StringContent("This is the response"),
@@ -49,7 +50,7 @@ public class HttpClientMockTests
         var mockClient = mocker.GetHttpClientMock(baseAddress);
         mockClient
             .SetupRequest(m =>
-                m.RequestUri == new Uri(new Uri(baseAddress), url)
+                m.RequestUri == new Uri(baseAddress, url)
                 && m.Method == HttpMethod.Get)
             .ReturnsAsync(expectedResponse);
         var client = mocker.Get<HttpClient>();
@@ -59,7 +60,7 @@ public class HttpClientMockTests
         Assert.Throws<MockException>(() =>
         {
             mockClient.Verify(m =>
-                m.RequestUri == new Uri(new Uri(baseAddress), url + "thisWillNotMatch")
+                m.RequestUri == new Uri(baseAddress, url + "thisWillNotMatch")
                 && m.Method == HttpMethod.Get, Times.Once);
         });
     }

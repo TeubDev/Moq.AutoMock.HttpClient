@@ -13,11 +13,14 @@ public class HttpClientMock
 {
     private readonly Mock<HttpMessageHandler> handlerMock;
 
-    internal HttpClientMock(AutoMocker mocker, string baseAddress)
+    internal HttpClientMock(AutoMocker mocker, Uri? baseAddress)
     {
         handlerMock = mocker.GetMock<HttpMessageHandler>();
         var httpClient = mocker.CreateInstance<HttpClient>();
-        httpClient.BaseAddress = new Uri(baseAddress);
+        if (baseAddress != null)
+        {
+            httpClient.BaseAddress = baseAddress;
+        }
         mocker.Use(httpClient);
     }
 
