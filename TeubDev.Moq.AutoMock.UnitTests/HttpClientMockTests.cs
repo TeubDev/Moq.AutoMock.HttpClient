@@ -10,7 +10,7 @@ public class HttpClientMockTests
     {
         var mocker = new AutoMocker();
         var mockClient = mocker.GetHttpClientMock();
-        var url = "stuff";
+        var url = "https://google.com/";
         var baseAddress = new Uri("https://google.com/");
         var expectedResponse = new HttpResponseMessage
         {
@@ -23,7 +23,6 @@ public class HttpClientMockTests
                 && m.Method == HttpMethod.Get)
             .ReturnsAsync(expectedResponse);
         var client = mocker.CreateInstance<HttpClient>();
-        client.BaseAddress = baseAddress;
 
         using var result = await client.GetAsync(url);
 
