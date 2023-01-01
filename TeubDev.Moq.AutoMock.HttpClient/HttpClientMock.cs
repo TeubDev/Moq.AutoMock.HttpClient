@@ -32,4 +32,9 @@ public class HttpClientMock
         handlerMock.Protected()
             .Verify<Task<HttpResponseMessage>>("SendAsync", times, ItExpr.Is(requestMatcher),
                 ItExpr.IsAny<CancellationToken>());
+
+    /// <inheritdoc cref="Verify(Expression{Func{HttpRequestMessage, bool}}, Times)"/>
+    public void Verify(Expression<Func<HttpRequestMessage, bool>> requestMatcher, Func<Times> times) =>
+        Verify(requestMatcher, times());
+
 }
