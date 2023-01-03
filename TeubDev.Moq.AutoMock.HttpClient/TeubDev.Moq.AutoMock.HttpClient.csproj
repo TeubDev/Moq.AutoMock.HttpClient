@@ -15,6 +15,7 @@
 	<RepositoryType>git</RepositoryType>
 	<PackageTags>Moq;AutoMock;HttpClient;Unit Test;Unit Testing</PackageTags>
 	<PackageLicenseFile>LICENSE</PackageLicenseFile>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
