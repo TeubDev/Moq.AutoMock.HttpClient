@@ -19,8 +19,8 @@ on:
 jobs:
   build:
     env:
-      BUILD_CONFIG: 'Release'
-      SOLUTION: 'TeubDev.Moq.AutoMock.HttpClient.sln'
+      BUILD_CONFIG: Release
+      SOLUTION: TeubDev.Moq.AutoMock.HttpClient.sln
 
     runs-on: ubuntu-latest
 
