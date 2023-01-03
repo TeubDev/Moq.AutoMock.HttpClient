@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <RootNamespace>TeubDev.Moq.AutoMock</RootNamespace>
 	<GenerateDocumentationFile>true</GenerateDocumentationFile>
-	<Version>0.0.1</Version>
+	<Version>1.0.0</Version>
 	<Authors>Michael Teubner</Authors>
 	<Company />
 	<Description>A NuGet package for making HttpClients slightly easier to test.</Description>
