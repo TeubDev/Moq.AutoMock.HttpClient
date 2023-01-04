@@ -1,3 +1,5 @@
+This package has been deprecated in favor of Moq.Contrib.HttpClient, which has most of the same features plus more.
+
 # Moq.AutoMock.HttpClient
 A NuGet package for making HttpClients slightly easier to test.
 
